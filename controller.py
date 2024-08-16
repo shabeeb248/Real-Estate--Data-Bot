@@ -13,6 +13,7 @@ load_dotenv()
 client = openai.OpenAI()
 
 from pymongo import MongoClient
+
 mclient = MongoClient(getenv("MONGODB_URI"))
 db = mclient.samplechatbot
 collection = db.main
