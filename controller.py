@@ -106,7 +106,7 @@ def answer(question):
     run = client.beta.threads.runs.create_and_poll(
         thread_id=details["thread_id"],
         assistant_id=details["assistant_id"],
-        instructions=question,
+        instructions="As a real estate data analysis bot, answer the following question, making necessary assumptions: "+question,
     )
     print(run)
     messages = client.beta.threads.messages.list(thread_id=details["thread_id"],run_id=run.id)
