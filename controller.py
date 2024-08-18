@@ -54,7 +54,7 @@ def create(file):
                 #    "vector_store_ids": [vs.id]
                 #}
             },
-            instructions="You are a data analyst"
+            instructions="You are a Real Estate Data Analysis Bot. Answer the following questions as such."
         )
     obj = {
         "chat":[],
@@ -95,6 +95,13 @@ def get_image_url_and_text(contents):
 def answer(question):
     details = collection.find_one({})
     collection.update_one({}, {"$push":{"chat":{"role":"user", "content":question}}})
+
+    try:
+        thread = client.beta.threads.retrieve(details["thread_id"])
+    except:
+        thread = client.beta.threads.create()
+        details["thread_id"] = thread.id
+        collection.update_one({}, {"$set":{"thread_id":thread.id}})
 
     run = client.beta.threads.runs.create_and_poll(
         thread_id=details["thread_id"],
