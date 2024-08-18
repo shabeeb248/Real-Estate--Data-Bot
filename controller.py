@@ -44,7 +44,7 @@ def create(file):
     thread = client.beta.threads.create()
 
     assistant = client.beta.assistants.create(
-            model="gpt-4-turbo",
+            model="gpt-4o",
             tools=[{"type": "code_interpreter"}],
             tool_resources={
                 "code_interpreter":{
@@ -106,7 +106,10 @@ def answer(question):
     run = client.beta.threads.runs.create_and_poll(
         thread_id=details["thread_id"],
         assistant_id=details["assistant_id"],
-        instructions="As a real estate data analysis bot, answer the following question, making necessary assumptions: "+question,
+        instructions="You have been provided a csv file of which the first row corresponds to its columns. \
+                            When asked a question related to the data provided, write and run code to answer the question. \
+                            Do not ask any confirming questions. Assume all that is necessary. \
+                            Do not mention anything insinuating that a file has been uploaded. Answer the following question: " + question,
     )
     print(run)
     messages = client.beta.threads.messages.list(thread_id=details["thread_id"],run_id=run.id)
