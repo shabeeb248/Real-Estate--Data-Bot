@@ -101,7 +101,7 @@ def page2():
 
     #with cols[1]:
     #    submit_button = st.button("Send", on_click=handle_input, args=(user_input,))
-    
+    #
 
 
 def main():
