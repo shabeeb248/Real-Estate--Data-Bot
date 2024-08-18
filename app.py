@@ -5,17 +5,16 @@ import numpy as np
 from controller import *
 
     
-def handle_input(user_input):
+def handle_input():
 
-    if user_input:
+    if st.session_state.user_input:
         # Append user message to chat
-        st.session_state.chat_data.append({"role": "user", "content": user_input})
+        st.session_state.chat_data.append({"role": "user", "content": st.session_state.user_input})
         
-        qna = answer(user_input)
+        qna = answer(st.session_state.user_input)
         print(qna)
         # Example assistant response (you can replace this with more complex logic)
         st.session_state.chat_data.append(qna)
-
         st.session_state.user_input = ""
 
 st.markdown("""
@@ -96,11 +95,12 @@ def page2():
             st.image(message["image"], caption="Image from Assistant", use_column_width=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
-    cols = st.columns([9, 1])
-    with cols[0]:
-        user_input = st.text_input("Type your message here:", key="user_input", label_visibility="collapsed")
-    with cols[1]:
-        submit_button = st.button("Send", on_click=handle_input, args=(user_input,))
+    #cols = st.columns([9, 1])
+    #with cols[0]:
+    user_input = st.text_input("Type your message here:", key="user_input", label_visibility="collapsed", on_change=handle_input)
+
+    #with cols[1]:
+    #    submit_button = st.button("Send", on_click=handle_input, args=(user_input,))
     
 
 
