@@ -1,7 +1,7 @@
-streamlit==1.34.0
-numpy==1.24.3
-pandas==2.2.0
-requests==2.31.0
-openai==1.23.2
-python-dotenv==1.0.0
-pymongo==4.6.0
+streamlit
+numpy
+pandas
+requests
+openai
+python-dotenv
+pymongo
